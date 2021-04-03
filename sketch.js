@@ -9,21 +9,22 @@ const Body = Matter.Body;
 
 function preload()
 {
-	starImg = loadImage("images/star.png");
-	fairyImg = loadAnimation("images/fairyImage1.png","images/fairyImage2.png");
-	bgImg = loadImage("images/starNight.png");
-	fairyVoice = loadSound("sound/JoyMusic.mp3");
+	starImg = loadImage("star.png");
+	fairyImg = loadAnimation("fairyImage1.png","fairyImage2.png");
+	bgImg = loadImage("starNight.png");
+	fairyVoice = loadSound("JoyMusic.mp3");
 
 }
 
 function setup() {
-	createCanvas(800, 750);
+	createCanvas(800, 600);
 
-	// fairyVoice.play();
+	fairyVoice.play();
 
-	fairy = createSprite(130, 520);
+	
+	fairy = createSprite(300, 490);
 	fairy.addAnimation("fairyflying",fairyImg);  
-	fairy.scale =0.25;
+	fairy.scale =0.2;
 
 	star = createSprite(650,30);
 	star.addImage(starImg);
@@ -41,12 +42,28 @@ function setup() {
 
 
 function draw() {
+
+	Engine.update(engine)
+
   background(bgImg);
+  fairy.velocityX=0
+  fairy.velocityY=0
+ 
+  if(keyDown(RIGHT_ARROW)){
+	fairy.velocityX=6
+}else if (keyDown(LEFT_ARROW)){
+	fairy.velocityX=-6
+}else if (keyDown(DOWN_ARROW)){
+	star.velocityY=3
+}
+
+if(star.y>470){
+	star.velocityY=0
+}
 
   drawSprites();
 
 }
 
-function keyPressed() {
-	//write code here
-}
+
+
